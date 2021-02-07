@@ -9,7 +9,7 @@ dte = datetime.datetime.now()
 Profile_DB = {
     "sucess": True,
     "data": {
-        "last_updated": "2/7/2021, 8:48:51 PM",
+        "last_updated": "2/7/2021, 4:32:43 PM",
         "username": "Ben Dover",
         "role": "Engineer in Training",
         "color": "red"
