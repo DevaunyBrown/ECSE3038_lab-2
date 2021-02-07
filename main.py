@@ -9,7 +9,7 @@ dte = datetime.datetime.now()
 Profile_DB = {
     "sucess": True,
     "data": {
-        "last_updated": "2/3/2021, 8:48:51 PM",
+        "last_updated": "2/7/2021, 8:48:51 PM",
         "username": "Ben Dover",
         "role": "Engineer in Training",
         "color": "red"
@@ -18,15 +18,12 @@ Profile_DB = {
 Num = 0
 tank_DB = []
 
-
 @app.route("/")
 def home():
     return "IoT LAB-2"
 
-#data route
 @app.route("/profile", methods=["GET", "POST", "PATCH"])
 def profile():
-     #For PATCH
     if request.method == "PATCH":
         Profile_DB["data"]["last_updated"] = (dte.strftime("%c"))
         
@@ -38,7 +35,6 @@ def profile():
   
         return jsonify(Profile_DB)
     if request.method == "POST":
-        # /POST
         Profile_DB["data"]["last_updated"] = (dte.strftime("%c"))
         Profile_DB["data"]["username"] = (request.json["username"])
         Profile_DB["data"]["role"] = (request.json["role"])
@@ -47,14 +43,11 @@ def profile():
         return jsonify(Profile_DB)
 
     else:
-        # /GET
         return jsonify(Profile_DB)
 
-# DATA Routes:
 @app.route("/data", methods=["GET", "POST"])
 def data():
     if request.method == "POST":
-        #For POST
         global Num
         Num += 1     
         posts = {}
@@ -68,13 +61,11 @@ def data():
         return jsonify(tank_DB)
 
     else:
-        # /GET
         return jsonify(tank_DB)
 
 @app.route("/data/<int:tankID>", methods=["PATCH", "DELETE"])
 def update(tankID):
      if request.method == "PATCH":
-        # /PATCH
         for index in tank_DB:
             if index["id"] == tankID:
                     tempDict = request.json
@@ -86,15 +77,12 @@ def update(tankID):
         return jsonify(tank_DB) 
 
      elif request.method == "DELETE":
-        #For DELETE
         for index in tank_DB:
             if index["id"] == tankID:
                 tank_DB.remove(index)
 
         return jsonify(tank_DB)
 
-
-# Main
 if __name__ == '__main__':
       app.run(
      debug=True,
